@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תיק עבודות | עמית שני</title>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --accent: #6366f1;
+            --card-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Assistant', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            padding: 60px 20px;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(99, 102, 241, 0.1), transparent);
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            font-weight: 800;
+        }
+
+        header p {
+            color: #a1a1aa;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        /* Portfolio Grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 100px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        /* Project Card */
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            overflow: hidden;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Image Zoom Effect */
+        .img-wrapper {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-img {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: top center;
+            transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.1); /* הזום שביקשת */
+        }
+
+        /* Content */
+        .project-content {
+            padding: 25px;
+            text-align: right;
+        }
+
+        .project-content h3 {
+            color: white;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .project-content p {
+            color: #a1a1aa;
+            margin: 10px 0 20px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: white;
+            color: black;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.5rem; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>תיק עבודות</h1>
+        <p>מבחר פרויקטים נבחרים בדיגיטל, עיצוב ופיתוח</p>
+    </header>
+
+    <div class="container">
+        <div class="portfolio-grid">
+            
+            <a href="https://monumental-melomakarona-a7dc64.netlify.app/" target="_blank" class="project-card">
+                <div class="img-wrapper">
+                    <div class="project-img" style="background-image: url('namastev.png');"></div>
+                </div>
+                <div class="project-content">
+                    <div style="margin-bottom: 12px;">
+                        <span class="tag">E-commerce</span>
+                        <span class="tag">UI/UX</span>
+                    </div>
+                    <h3>נמסתיו - יוגה לילדים</h3>
+                    <p>אתר תדמית ואיקומרס פרימיום עם חווית משתמש מזמינה ומרגיעה.</p>
+                </div>
+            </a>
+
+            <a href="https://coruscating-piroshki-f6c977.netlify.app/" target="_blank" class="project-card">
+                <div class="img-wrapper">
+                    <div class="project-img" style="background-image: url('talshani.png');"></div>
+                </div>
+                <div class="project-content">
+                    <div style="margin-bottom: 12px;">
+                        <span class="tag">Digital Card</span>
+                        <span class="tag">Business</span>
+                    </div>
+                    <h3>טל שני - הפקת אירועים</h3>
+                    <p>כרטיס ביקור דיגיטלי יוקרתי המעניק נוכחות מרשימה ומקצועית לבעל העסק.</p>
+                </div>
+            </a>
+
+            <a href="#" class="project-card">
+                <div class="img-wrapper">
+                    <div class="project-img" style="background-image: url('enjoyvr.png');"></div>
+                </div>
+                <div class="project-content">
+                    <div style="margin-bottom: 12px;">
+                        <span class="tag">Systems</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                    <h3>Enjoy VR</h3>
+                    <p>מערכת חכמה לניהול חווית הלקוח בחדר מציאות מדומה, כולל אוטומציות מתקדמות.</p>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <a href="index.html" class="back-btn">→ חזרה לדף הבית</a>
+
+</body>
+</html>

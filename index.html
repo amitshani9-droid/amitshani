@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>עמית שני | פתרונות דיגיטליים</title>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #050505; --accent: #6366f1; }
+        body { margin: 0; background: var(--bg); color: white; font-family: 'Assistant', sans-serif; overflow-x: hidden; }
+        
+        #scrolly-section { height: 600vh; position: relative; }
+        canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1; object-fit: contain; }
+
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            z-index: 10; pointer-events: none;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+        }
+
+        .beat {
+            position: absolute; opacity: 0; transform: translateY(40px);
+            transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+            width: 90%; max-width: 800px;
+            visibility: hidden;
+            /* שיפור קריאות מעל תמונות עמוסות */
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9), 0 2px 10px rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 40px;
+        }
+
+        /* הוספת רקע עדין מאוד מאחורי הטקסט כדי "להקפיץ" אותו מהתמונה */
+        .beat::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%; height: 120%;
+            background: radial-gradient(circle, rgba(0,0,0,0.6) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glass-card {
+            background: rgba(5, 5, 5, 0.75); backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15); padding: 40px; border-radius: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+        }
+
+        /* עיצוב כפתורים */
+        .btn-group { display: flex; gap: 15px; justify-content: center; margin-top: 30px; pointer-events: auto; }
+        
+        .btn-primary {
+            background: var(--accent); color: white; padding: 16px 35px; border-radius: 50px;
+            text-decoration: none; font-weight: 800; transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05); color: white; padding: 16px 35px; border-radius: 50px;
+            text-decoration: none; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4); }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--accent); transform: translateY(-3px); }
+
+        /* Grid שירותים */
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        .service-item { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .service-item h3 { color: var(--accent); margin-bottom: 5px; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+
+    <div id="scrolly-section">
+        <canvas id="main-canvas"></canvas>
+
+        <div class="overlay">
+            <div id="beat-intro" class="beat">
+                <h1 style="font-size: clamp(2.5rem, 6vw, 4rem); margin: 0; font-weight: 800; line-height: 1.2;">עמית שני<br><span style="color: var(--accent); font-size: 0.6em; text-transform: uppercase; letter-spacing: 2px;">בונה את העתיד הדיגיטלי של העסק שלך</span></h1>
+            </div>
+
+            <div id="beat-1" class="beat">
+                <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem); margin: 0; font-weight: 800; line-height: 1.2; letter-spacing: -1px;">נוכחות דיגיטלית<br><span style="color: var(--accent); text-shadow: 0 0 20px rgba(99, 102, 241, 0.4);">שמשאירה חותם</span></h1>
+                <p style="font-size: 1.4rem; color: #e2e8f0; margin-top: 20px; font-weight: 400;">בניית נכסים דיגיטליים פרימיום בסטנדרט הגבוה ביותר.</p>
+            </div>
+
+            <div id="beat-2" class="beat">
+                <div class="glass-card">
+                    <h2 style="margin-bottom: 25px; font-size: 2.2rem;">השירותים שלי</h2>
+                    <div class="services-grid">
+                        <div class="service-item"><h3>💻 אתר לעסק</h3><p style="font-size: 0.9rem; color: #ccc;">תשתית דיגיטלית חזקה, מהירה ומעוצבת.</p></div>
+                        <div class="service-item"><h3>🎯 דפי נחיתה</h3><p style="font-size: 0.9rem; color: #ccc;">בניית דפים ממוקדי המרה שמביאים פניות.</p></div>
+                        <div class="service-item"><h3>📱 כרטיס ביקור דיגיטלי</h3><p style="font-size: 0.9rem; color: #ccc;">הרושם הראשוני שלך, תמיד בכיס של הלקוח.</p></div>
+                        <div class="service-item"><h3>⚙️ אוטומציות</h3><p style="font-size: 0.9rem; color: #ccc;">מערכות חכמות שחוסכות לך זמן יקר בכל יום.</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="beat-3" class="beat">
+                <div class="glass-card">
+                    <h2 style="font-size: 2.5rem; margin-bottom: 15px;">עמית שני</h2>
+                    <p style="font-size: 1.25rem; line-height: 1.6; color: #ddd;">
+                        דיוק הוא לא המלצה, הוא הבסיס. כחייל משוחרר שהביא את המשמעת והחתירה למצוינות לעולם הטכנולוגיה, אני בונה לעסק שלך נכסים דיגיטליים שעובדים בשבילך – בלי פשרות.
+                    </p>
+                    <p style="color: var(--accent); font-weight: bold; margin-top: 15px;">🚀 הטבת השקה: ליווי אישי ומחירי היכרות</p>
+                    
+                    <div class="btn-group">
+                        <a href="portfolio.html" class="btn-secondary">לתיק העבודות</a>
+                        <a href="https://wa.me/972533407255?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%9E%D7%99%D7%AA%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%94%D7%9E%D7%90%D7%AA%A8%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A2%D7%9C%20%D7%91%D7%A0%D7%99%D7%99%D7%AA%20%D7%A0%D7%9B%D7%A1%20%D7%93%D7%99%D7%92%D7%99%D7%98%D7%9C%D7%99" target="_blank" class="btn-primary">בוא נדבר בוואטסאפ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('main-canvas');
+        const ctx = canvas.getContext('2d');
+        const frameCount = 240;
+        const images = [];
+        let imagesLoaded = 0;
+
+        function preloadImages() {
+            for (let i = 1; i <= frameCount; i++) {
+                const img = new Image();
+                img.src = `sequence/frame_${i.toString().padStart(3, '0')}.jpg`;
+                img.onload = () => {
+                    imagesLoaded++;
+                    if (imagesLoaded === 1) render(0);
+                };
+                images.push(img);
+            }
+        }
+
+        function render(progress) {
+            const frameIndex = Math.min(frameCount - 1, Math.floor(progress * (frameCount - 1)));
+            const img = images[frameIndex];
+            if (img && img.complete) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
+                const x = (canvas.width / 2) - (img.width / 2) * scale;
+                const y = (canvas.height / 2) - (img.height / 2) * scale;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+            }
+            updateUI(progress);
+        }
+
+        function updateUI(p) {
+            const show = (id, visible) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.style.opacity = visible ? "1" : "0";
+                el.style.transform = visible ? "translateY(0)" : "translateY(40px)";
+                el.style.visibility = visible ? "visible" : "hidden";
+            };
+
+            show('beat-intro', p < 0.12);
+            show('beat-1', p > 0.20 && p < 0.40);
+            show('beat-2', p > 0.50 && p < 0.75);
+            show('beat-3', p > 0.85);
+        }
+
+        window.addEventListener('scroll', () => {
+            const container = document.getElementById('scrolly-section');
+            const maxScroll = container.offsetHeight - window.innerHeight;
+            const progress = window.scrollY / maxScroll;
+            requestAnimationFrame(() => render(Math.max(0, Math.min(1, progress))));
+        });
+
+        window.addEventListener('resize', () => render(window.scrollY / (document.getElementById('scrolly-section').offsetHeight - window.innerHeight)));
+
+        preloadImages();
+    </script>
+</body>
+</html>
