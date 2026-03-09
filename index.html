@@ -9,7 +9,7 @@
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:title" content="עמית שני | נוכחות דיגיטלית שמשאירה חותם">
     <meta property="og:description" content="בניית נכסים דיגיטליים פרימיום, אתרים ואוטומציות בסטנדרט הגבוה ביותר.">
-    <meta property="og:image" content="https://amitshani.vercel.app/images/og-image.jpg">
+    <meta property="og:image" content="https://amitshani.vercel.app/index.html/og-image.jpg"> <!-- Updated URL strategy -->
     <meta property="og:url" content="https://amitshani.vercel.app/">
     <meta property="og:type" content="website">
 
@@ -19,6 +19,26 @@
         :root {
             --bg: #050505;
             --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.4);
+        }
+
+        /* Progress Bar */
+        #progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1001;
+        }
+
+        #progress-bar {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            box-shadow: 0 0 10px var(--accent);
+            transition: width 0.1s ease;
         }
 
         body {
@@ -283,9 +303,13 @@
 
 <body>
 
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
     <nav class="site-nav">
         <div class="logo">
-            <img src="Logo.png" alt="Amit Shani Logo">
+            <img src="Logo.png" alt="Amit Shani Logo" loading="eager">
         </div>
     </nav>
 
@@ -298,7 +322,7 @@
     <div id="scrolly-section">
         <canvas id="main-canvas"></canvas>
 
-        <div class="scroll-indicator" id="scroll-hint">
+        <div class="scroll-indicator" id="scroll-hint" aria-hidden="true">
             <span>גלול למטה</span>
             <div class="arrow"></div>
         </div>
@@ -356,9 +380,9 @@
                         ומחירי היכרות</p>
 
                     <div class="btn-group">
-                        <a href="portfolio.html" class="btn-secondary">לתיק העבודות</a>
+                        <a href="portfolio.html" class="btn-secondary" aria-label="צפייה בתיק העבודות של עמית שני">לתיק העבודות</a>
                         <a href="https://wa.me/972533407255?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%9E%D7%99%D7%AA%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%94%D7%9E%D7%90%D7%AA%A8%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A2%D7%9C%20%D7%91%D7%A0%D7%99%D7%99%D7%AA%20%D7%A0%D7%9B%D7%A1%20%D7%93%D7%99%D7%92%D7%99%D7%98%D7%9C%D7%99"
-                            target="_blank" class="btn-primary">בוא נדבר בוואטסאפ</a>
+                            target="_blank" rel="noopener noreferrer" class="btn-primary" aria-label="יצירת קשר בוואטסאפ עם עמית שני">בוא נדבר בוואטסאפ</a>
                     </div>
                 </div>
             </div>
@@ -437,6 +461,9 @@
 
             const hint = document.getElementById('scroll-hint');
             if (hint) hint.style.opacity = p > 0.01 ? "0" : "1";
+
+            const progressBar = document.getElementById('progress-bar');
+            if (progressBar) progressBar.style.width = `${p * 100}%`;
         }
 
         // לולאת האנימציה - רצה באופן קבוע לביצועים חלקים (Apple-style)
